@@ -122,6 +122,17 @@ function setOperator(){
 }
 function setNegative(){
 
+    if(! operator){
+        firstStr = -Math.abs(Number(firstStr))
+        displayText = firstStr;
+    }
+    else if(operator){
+        secondStr = -Math.abs(Number(secondStr))
+        displayText = secondStr;
+    }
+    setDisp();
+    console.log('changed to negative');
+
 }
 
 function clearDisplay(){
@@ -170,7 +181,6 @@ function sum(){
         sumNum = operators[operator](firstNum, secondNum);
         displayText = sumNum;
         setDisp();
-        console.log(operators[operator](firstNum, secondNum));
         console.log('Sum:' + displayText);
        };
 
