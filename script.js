@@ -65,6 +65,15 @@ const display = document.getElementById('displayNum');
 
 var displayText = '';
 
+const operators = {
+
+    '+': function(firstNum, secondNum){return sumNum = firstNum + secondNum},
+    '-': function(firstNum, secondNum){return sumNum = firstNum - secondNum},
+    '*': function(firstNum, secondNum){return sumNum = firstNum * secondNum},
+    '/': function(firstNum, secondNum){return sumNum = firstNum / secondNum},
+
+};
+
 function setDisp(){
     display.innerText = displayText;
 }
@@ -77,8 +86,8 @@ var secondStr = '';
 var secondNum = Number(secondStr);
 //if an operator has been selected, add the selected value to first num, opposite for secondNum
 function addendNum(){
-    if(sum){clearDisplay()}
-    
+    if(sumNum){clearDisplay()}
+
     if (! operator){
         firstStr += this.value;
         displayText = firstStr;
@@ -116,6 +125,7 @@ function setNegative(){
 }
 
 function clearDisplay(){
+    sumNum = ''
     displayText = '';
     operator = '';
     firstStr = '';
@@ -148,15 +158,21 @@ function backNum(){
 }
 
 function sum(){
-    firstNum = Number(firstNum);
+    firstNum = Number(firstStr);
     secondNum = Number(secondStr);
-    //choices: + - * / +/-
+
     if(operator == '/' && secondNum == 0){
         displayText = 'Nice try';
         setDisp();
         console.log('divided by zero');
     }
-    else{console.log('null')};
+    else{
+        sumNum = operators[operator](firstNum, secondNum);
+        displayText = sumNum;
+        setDisp();
+        console.log(operators[operator](firstNum, secondNum));
+        console.log('Sum:' + displayText);
+       };
 
 }
 
