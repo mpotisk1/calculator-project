@@ -59,6 +59,21 @@ sumB.addEventListener('click', sum)
 //display buttons
 clearB.addEventListener('click', clearDisplay)
 backB.addEventListener('click', backNum)
+//key press listener
+document.addEventListener('keydown', addKey);
+
+function addKey(event){
+    if(sumNum){clearDisplay()}
+    if(! operator){
+    firstStr += event.key;
+    addendNum();
+};
+    if(operator){
+        secondStr += event.key;
+        addendNum();
+    }
+
+}
 
  //initialize display
 const display = document.getElementById('displayNum');
@@ -86,17 +101,18 @@ var secondStr = '';
 var secondNum = Number(secondStr);
 //if an operator has been selected, add the selected value to first num, opposite for secondNum
 function addendNum(){
-    if(sumNum){clearDisplay()}
+    if(sumNum && firstStr && ! operator){clearDisplay()};
 
     if (! operator){
-        firstStr += this.value;
+        if(this.value){firstStr += this.value};
         displayText = firstStr;
         setDisp();
         console.log(firstStr);
-    }
+        return;
+        }
 
     if(operator){
-        secondStr += this.value;
+        if(this.value){secondStr += this.value};
         displayText = secondStr;
         setDisp();
         console.log(secondStr);
@@ -114,6 +130,7 @@ function setOperator(){
 
         operator = this.value;
         displayText = operator;
+        sumNum = '';
         setDisp();
         console.log(operator);
 
@@ -169,6 +186,7 @@ function backNum(){
 }
 
 function sum(){
+    sumNum = ''
     firstNum = Number(firstStr);
     secondNum = Number(secondStr);
 
@@ -181,11 +199,15 @@ function sum(){
         sumNum = operators[operator](firstNum, secondNum);
         displayText = sumNum;
         setDisp();
+        firstStr = sumNum;
+        operator = '';
+        //sumNum = '';
+        secondStr = '';
         console.log('Sum:' + displayText);
        };
 
 }
-
+1
 
 
 
